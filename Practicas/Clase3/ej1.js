@@ -10,9 +10,13 @@ function mayor (a,b,c){
         }else {
             if ( c>a && c > b){
                 return c
+            }else {
+                return "Error"
             }
         }
     }
 }
 
 console.log(mayor(1,2,3))
+console.log(mayor(4,9,2))
+console.log(mayor(45,12,30))
