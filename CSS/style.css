@@ -1,0 +1,26 @@
+/* CSS: Colores, box model, position, medias,
+fuentes, display */
+
+/* Colores */
+body{background-color: blueviolet;}
+h1{
+    border: 1px solid white;
+    color: #ffffff;
+    margin: 10 ; /* los 4 margenes son 10 */
+    padding: 40px solid black;
+    /* display: block; /* ocupa todo el ancho*/
+    display: inline;  /* ocupa el tamaño del texto*/
+
+}
+h2{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 600; /* creo que es medio el grosor */
+    font-style: italic;
+    color:rgb(0, 251, 255)
+}
+img{
+    border: 5px solid black;
+    display: block;
+    width: 100px;
+    height: 10%;
+}

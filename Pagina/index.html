@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La web de Agus</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ================= CLASE 4 ================= -->
+<header>
+    <nav>
+        <ul style="list-style: none; display: flex; gap: 10px;">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Nosotros</a></li>
+            <li><a href="#">Contacto</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1>La web de Agus</h1>
+    <img src="./img/IMG-20230620-WA0002.jpg" width="600px" alt="Foto :)">
+    <h2>Holaaaaaa</h2>
+    <p>Lorem ipsum lorem ipsum lorem ipsum</p>
+
+    <div>Sección 1</div>
+    <div>Sección 2</div>
+    <span>Sección 3</span>
+    <span>Sección 4</span>
+
+    <!-- ================= CLASE 5 ================= -->
+    <h2>Listas ordenadas y desordenadas</h2>
+    <ol type="i">
+        <li>Elemento 1</li>
+        <li>Elemento 2</li>
+        <li>Elemento 3</li>
+    </ol>
+    <ul type="square">
+        <li>Elemento A</li>
+        <li>Elemento B</li>
+        <li>Elemento C</li>
+    </ul>
+
+    <h2>Tabla de ejemplo</h2>
+    <table border="1">
+        <tr><th>Encabezado</th><th>Otro</th></tr>
+        <tr><td>Dato 1</td><td>Dato 2</td></tr>
+    </table>
+
+    <h2>Formulario</h2>
+    <form id="miFormulario">
+        <input type="text" id="nombre" placeholder="Ingrese su nombre">
+        <input type="date"><br><br>
+        <input type="checkbox" id="generoFemenino"><label for="generoFemenino">Femenino</label><br>
+        <input type="password" placeholder="Contraseña"><br>
+        <input type="email" placeholder="Email"><br>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <textarea placeholder="Escribí algo..."></textarea>
+
+    <select>
+        <option value="ars">Pesos Argentinos</option>
+        <option value="usd">Dólares</option>
+    </select>
+
+    <details>
+        <summary>ALERTA SPOILER</summary>
+        <p>Contenido oculto que se despliega al hacer clic.</p>
+    </details>
+
+</main>
+
+<footer>
+    <p>© Agus - Proyecto Web</p>
+</footer>
+
+<!-- ================= JS externo ================= -->
+<script src="script.js"></script>
+<!--"Ese renglon dice: Cargá y ejecutá el archivo script.js una vez que todo el HTML esté cargado."
+-->
+</body>
+</html>
