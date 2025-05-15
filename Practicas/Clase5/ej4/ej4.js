@@ -7,3 +7,4 @@ const lista = document.getElementById("lista");
 if (lista.firstElementChild) {
   lista.removeChild(lista.firstElementChild);
 }
+
