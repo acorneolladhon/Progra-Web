@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="sty.css">
 </head>
 <body>
-  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
     <div class="container-fluid">
       <a class="navbar-brand" href="#" onclick="volverAlInicio()">Voley Store</a>
@@ -45,7 +44,6 @@
     </div>
   </nav>
 
-  <!-- Offcanvas Carrito -->
   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCarrito">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title">Tu Carrito - Voley Store</h5>
@@ -66,7 +64,8 @@
     </div>
   </div>
 
-  <!-- Hero -->
+
+
   <header id="hero" class="bg-light text-center py-5">
     <div class="container">
       <h1 class="display-5 fw-bold">Equipamiento profesional de voley</h1>
@@ -74,17 +73,45 @@
     </div>
   </header>
 
-<section id="menu-inicial" class="container text-center py-5">
-  <h2 class="mb-4">Explorá nuestro catálogo</h2>
-  <div class="row row-cols-1 row-cols-md-3 g-4">
-    <div class="col"><div class="card h-100" onclick="mostrarCategoria('zapatillas')"><div class="card-body"><h5>Zapatillas</h5></div></div></div>
-    <div class="col"><div class="card h-100" onclick="mostrarCategoria('remeras')"><div class="card-body"><h5>Remeras</h5></div></div></div>
-    <div class="col"><div class="card h-100" onclick="mostrarCategoria('rodilleras')"><div class="card-body"><h5>Rodilleras</h5></div></div></div>
-    <!-- Agregá las demás categorías acá igual -->
-  </div>
-</section>
+  <section class="text-center py-5">
+    <div class="container">
+      <h2 class="mb-4">Explorá nuestro catálogo</h2>
+      <div class="row justify-content-center g-3">
+        <div class="col-auto"><button class="btn btn-outline-dark" onclick="mostrarCategoria('zapatillas')">Zapatillas</button></div>
+        <div class="col-auto"><button class="btn btn-outline-dark" onclick="mostrarCategoria('remeras')">Remeras</button></div>
+        <div class="col-auto"><button class="btn btn-outline-dark" onclick="mostrarCategoria('rodilleras')">Rodilleras</button></div>
+        <div class="col-auto"><button class="btn btn-outline-dark" onclick="mostrarCategoria('manguitas')">Manguitas</button></div>
+        <div class="col-auto"><button class="btn btn-outline-dark" onclick="mostrarCategoria('calzas/shorts')">Calzas / Shorts</button></div>
+        <div class="col-auto"><button class="btn btn-outline-dark" onclick="mostrarCategoria('tops')">Tops</button></div>
+        <div class="col-auto"><button class="btn btn-outline-dark" onclick="mostrarCategoria('bolsos')">Bolsos</button></div>
+        <div class="col-auto"><button class="btn btn-outline-dark" onclick="mostrarCategoria('lesiones')">Lesiones</button></div>
+        <div class="col-auto"><button class="btn btn-outline-dark" onclick="mostrarCategoria('pelotas')">Pelotas</button></div>
+      </div>
+    </div>
+  </section>
 
-  <!-- Sección sobre nosotros -->
+  <section id="catalogo" style="display: none;">
+    <div class="container">
+
+      <h2 id="titulo-categoria" class="text-center my-4"></h2>
+      <div id="orden-filtros" class="mb-4">
+        <select id="orden-select">
+            <option value="">Ordenar por</option>
+            <option value="precio-asc">Precio menor a mayor</option>
+            <option value="precio-desc">Precio mayor a menor</option>
+            <option value="az">Nombre A-Z</option>
+            <option value="za">Nombre Z-A</option>
+        </select>
+        <button id="aplicar-orden">Aplicar</button>
+      </div>
+      <div id="productos-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"></div>
+    </div>
+  </section>
+
+  <section id="detalle-producto" style="display: none;">
+    <div id="detalle-container" class="container py-5"></div>
+  </section>
+
   <section id="sobre-nosotros" class="text-center py-5">
     <div class="container">
       <h2 class="mb-3">Sobre Nosotros</h2>
@@ -92,20 +119,6 @@
     </div>
   </section>
 
-  <!-- Catálogo -->
-  <section id="catalogo" style="display: none;">
-    <div class="container">
-      <h2 id="titulo-categoria" class="text-center my-4"></h2>
-      <div id="productos-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"></div>
-    </div>
-  </section>
-
-  <!-- Detalle de producto -->
-  <section id="detalle-producto" style="display: none;">
-    <div id="detalle-container" class="container py-5"></div>
-  </section>
-
-  <!-- Contacto -->
   <section id="contacto" class="py-5 text-center">
     <div class="container">
       <h2>Contacto</h2>
@@ -113,7 +126,6 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="text-center py-4">
     <div class="container">
       <p>© 2025 Voley Store</p>

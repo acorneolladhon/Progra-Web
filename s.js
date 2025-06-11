@@ -528,59 +528,103 @@ let productos = [
 
 ];
 
+// script_final.js
 
-// script.js completo actualizado
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+function mostrarCategoria(categoria) {
+  window.ultimaCategoria = categoria;
 
-function actualizarCarrito() {
-  const contenedor = document.getElementById("carrito-container");
-  contenedor.innerHTML = "";
+  document.getElementById("catalogo").style.display = "block";
+  document.getElementById("detalle-producto").style.display = "none";
+  document.getElementById("titulo-categoria").textContent = categoria.charAt(0).toUpperCase() + categoria.slice(1);
+  const cont = document.getElementById("productos-container");
+  cont.innerHTML = "";
 
-  if (carrito.length === 0) {
-    contenedor.innerHTML = '<p class="text-muted">Tu carrito está vacío.</p>';
-    document.getElementById("carrito-total").textContent = "$0";
-    document.getElementById("contador-carrito").textContent = "0";
+  const filtrados = productos.filter(p => p.categoria === categoria);
+  if (filtrados.length === 0) {
+    cont.innerHTML = "<p>No hay productos en esta categoría.</p>";
     return;
   }
-
-  let total = 0;
-  let html = "";
-  carrito.forEach((item, index) => {
-    const subtotal = item.precio * item.cantidad;
-    total += subtotal;
-    html += `
-      <div class="carrito-item">
-        <img src="${item.imagen}" alt="${item.nombre}">
-        <div class="flex-grow-1">
-          <div><strong>${item.nombre} (${item.talle})</strong></div>
-          <div>$${item.precio.toLocaleString("es-AR")} x</div>
-          <input type="number" class="form-control my-1" value="${item.cantidad}" min="1" onchange="cambiarCantidad(${index}, this.value)">
-          <div>= $${subtotal.toLocaleString("es-AR")}</div>
+  filtrados.forEach(p => {
+    cont.innerHTML += `
+      <div class="col">
+        <div class="card h-100">
+          <img src="${p.imagen}" class="card-img-top" alt="${p.nombre}">
+          <div class="card-body">
+            <h5 class="card-title">${p.nombre}</h5>
+            <p class="card-text fw-bold">$${p.precio.toLocaleString("es-AR")}</p>
+            <button class="btn btn-primary" onclick="verDetalle(${p.id})">Ver Detalle</button>
+          </div>
         </div>
-        <button class="btn btn-outline-danger" onclick="eliminarItem(${index})">
-          <i class="bi bi-trash"></i>
-        </button>
-      </div>
-    `;
+      </div>`;
   });
-
-  document.getElementById("carrito-total-monto").textContent = `$${total.toLocaleString("es-AR")}`;
-
-
-  contenedor.innerHTML = html;
-  document.getElementById("contador-carrito").textContent = carrito.length;
-  localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-function cambiarCantidad(index, nuevaCantidad) {
-  carrito[index].cantidad = parseInt(nuevaCantidad);
-  actualizarCarrito();
+function filtrarCategoria(categoria) {
+  window.ultimaCategoria = categoria; // Guarda para el orden
+  document.getElementById("titulo-categoria").textContent = categoria.charAt(0).toUpperCase() + categoria.slice(1);
+  const productosFiltrados = productos.filter(p => p.categoria === categoria);
+  renderizarProductos(productosFiltrados);
+  document.getElementById("catalogo").style.display = "block";
+  document.getElementById("detalle-producto").style.display = "none";
 }
 
-function eliminarItem(index) {
-  carrito.splice(index, 1);
-  actualizarCarrito();
+
+function ordenarProductos() {
+  const criterio = document.getElementById("orden-select").value;
+  if (criterio === "default" || !window.ultimaCategoria) return;
+
+  let productosFiltrados = productos.filter(p => p.categoria === window.ultimaCategoria);
+
+  if (criterio === "precio-asc") {
+    productosFiltrados.sort((a, b) => a.precio - b.precio);
+  } else if (criterio === "precio-desc") {
+    productosFiltrados.sort((a, b) => b.precio - a.precio);
+  } else if (criterio === "az") {
+    productosFiltrados.sort((a, b) => a.nombre.localeCompare(b.nombre));
+  } else if (criterio === "za") {
+    productosFiltrados.sort((a, b) => b.nombre.localeCompare(a.nombre));
+  }
+
+  renderizarProductos(productosFiltrados);
+}
+
+
+function verDetalle(id) {
+  const producto = productos.find(p => p.id === id);
+  const cont = document.getElementById("detalle-container");
+
+  const opcionesTalle = producto.talles.map(t => `<option>${t}</option>`).join("");
+
+  document.getElementById("catalogo").style.display = "none";
+  document.getElementById("detalle-producto").style.display = "block";
+
+  cont.innerHTML = `
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <img src="${producto.imagen}" class="img-fluid" alt="${producto.nombre}">
+      </div>
+      <div class="col-md-6">
+        <h2>${producto.nombre}</h2>
+        <p class="fs-4 fw-bold">$${producto.precio.toLocaleString("es-AR")}</p>
+        <div class="mb-3">
+          <label for="talle" class="form-label">Talle:</label>
+          <select id="talle" class="form-select">${opcionesTalle}</select>
+        </div>
+        <div class="mb-3">
+          <label for="cantidad" class="form-label">Cantidad:</label>
+          <input type="number" id="cantidad" class="form-control" value="1" min="1">
+        </div>
+        <button class="btn btn-success" onclick="agregarAlCarritoDesdeDetalle(${producto.id})">Agregar al carrito</button>
+        <button class="btn btn-outline-secondary ms-2" onclick="volverAlInicio()">Volver</button>
+      </div>
+    </div>`;
+}
+
+function volverAlInicio() {
+  document.getElementById("catalogo").style.display = "none";
+  document.getElementById("detalle-producto").style.display = "none";
 }
 
 function agregarAlCarritoDesdeDetalle(id) {
@@ -588,82 +632,81 @@ function agregarAlCarritoDesdeDetalle(id) {
   const talle = document.getElementById("talle").value;
   const cantidad = parseInt(document.getElementById("cantidad").value);
 
-  const itemExistente = carrito.find(p => p.id === id && p.talle === talle);
-  if (itemExistente) {
-    itemExistente.cantidad += cantidad;
+  const existente = carrito.find(item => item.id === producto.id && item.talle === talle);
+  if (existente) {
+    existente.cantidad += cantidad;
   } else {
     carrito.push({ ...producto, talle, cantidad });
   }
-
-  actualizarCarrito();
-  alert("Producto agregado al carrito.");
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  renderizarCarrito();
 }
 
-function mostrarCategoria(categoria) {
-  document.getElementById("menu-inicial").style.display = "none";
-  document.getElementById("catalogo").style.display = "flex";
-  document.getElementById("detalle-producto").style.display = "none";
-  const contenedor = document.getElementById("productos-container");
-  const titulo = document.getElementById("titulo-categoria");
-  const filtrados = productos.filter(p => p.categoria === categoria);
+function renderizarCarrito() {
+  const cont = document.getElementById("carrito-container");
+  if (!cont) return;
 
-  titulo.textContent = categoria.charAt(0).toUpperCase() + categoria.slice(1);
-  contenedor.innerHTML = "";
-  filtrados.forEach(p => {
-    contenedor.innerHTML += `
-      <div class="col">
-        <div class="card h-100" onclick="verDetalle(${p.id})">
-          <img src="${p.imagen}" class="card-img-top" alt="${p.nombre}">
-          <div class="card-body">
-            <h5 class="card-title">${p.nombre}</h5>
-            <p class="card-text">$${p.precio.toLocaleString("es-AR")}</p>
-          </div>
-        </div>
+  if (carrito.length === 0) {
+    cont.innerHTML = `<p class="text-muted">Tu carrito está vacío.</p>`;
+    document.getElementById("carrito-total-monto").textContent = "$0";
+    document.getElementById("contador-carrito").textContent = "0";
+    return;
+  }
+
+  cont.innerHTML = carrito.map((item, i) => `
+    <div class="d-flex align-items-center mb-3">
+      <img src="${item.imagen}" alt="${item.nombre}" class="me-3 rounded" style="width: 64px; height: 64px; object-fit: cover;">
+      <div class="flex-grow-1">
+        <h6 class="mb-1">${item.nombre} (${item.talle})</h6>
+        <small class="text-muted">$${item.precio.toLocaleString("es-AR")} x</small>
+        <input type="number" min="1" value="${item.cantidad}" class="form-control form-control-sm d-inline-block w-auto ms-2"
+          onchange="actualizarCantidad(${i}, this.value)">
+        <div>= $${(item.precio * item.cantidad).toLocaleString("es-AR")}</div>
       </div>
-    `;
-  });
-}
-
-
-function verDetalle(id) {
-  const producto = productos.find(p => p.id === id);
-  const cont = document.getElementById("detalle-container");
-  const opcionesTalle = producto.talles.map(t => `<option value="${t}">${t}</option>`).join("");
-
-  document.getElementById("menu-inicial").style.display = "none";
-  document.getElementById("catalogo").style.display = "none";
-  document.getElementById("detalle-producto").style.display = "block";
-
-  cont.innerHTML = `
-    <div class="row align-items-center">
-      <div class="col-md-6">
-        <img src="${producto.imagen}" alt="${producto.nombre}" class="img-fluid">
-      </div>
-      <div class="col-md-6">
-        <h2>${producto.nombre}</h2>
-        <p class="fs-4 fw-bold">$${producto.precio.toLocaleString("es-AR")}</p>
-        <label>Talle:
-          <select id="talle" class="form-select w-50 my-2">
-            ${opcionesTalle}
-          </select>
-        </label>
-        <label>Cantidad:
-          <input type="number" id="cantidad" value="1" min="1" class="form-control w-50 my-2">
-        </label>
-        <button onclick="agregarAlCarritoDesdeDetalle(${producto.id})" class="btn btn-primary me-2">Agregar al carrito</button>
-        <button onclick="volverAlInicio()" class="btn btn-outline-secondary">Volver</button>
-      </div>
+      <button class="btn btn-sm btn-outline-danger ms-2" onclick="eliminarItem(${i})"><i class="bi bi-trash"></i></button>
     </div>
-  `;
+  `).join("");
+
+  const total = carrito.reduce((suma, p) => suma + p.precio * p.cantidad, 0);
+  document.getElementById("carrito-total-monto").textContent = `$${total.toLocaleString("es-AR")}`;
+  document.getElementById("contador-carrito").textContent = carrito.length;
 }
 
-
-function volverAlInicio() {
-  document.getElementById("menu-inicial").style.display = "flex";
-  document.getElementById("catalogo").style.display = "none";
-  document.getElementById("detalle-producto").style.display = "none";
+function actualizarCantidad(i, nuevaCantidad) {
+  const cantidad = parseInt(nuevaCantidad);
+  if (!isNaN(cantidad) && cantidad > 0) {
+    carrito[i].cantidad = cantidad;
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    renderizarCarrito();
+  }
 }
+
+function eliminarItem(i) {
+  carrito.splice(i, 1);
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  renderizarCarrito();
+}
+
+document.getElementById("vaciar-carrito").addEventListener("click", () => {
+  carrito = [];
+  localStorage.removeItem("carrito");
+  renderizarCarrito();
+});
+
+document.getElementById("finalizar-compra").addEventListener("click", () => {
+  if (carrito.length === 0) {
+    alert("Tu carrito está vacío.");
+    return;
+  }
+  alert("Gracias por tu compra!");
+  carrito = [];
+  localStorage.removeItem("carrito");
+  renderizarCarrito();
+});
 
 document.addEventListener("DOMContentLoaded", () => {
-  actualizarCarrito();
+  renderizarCarrito();
 });
+
+document.getElementById("aplicar-orden")?.addEventListener("click", ordenarProductos);
+
