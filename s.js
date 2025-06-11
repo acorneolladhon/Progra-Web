@@ -565,6 +565,7 @@ function filtrarCategoria(categoria) {
   window.ultimaCategoria = categoria; // Guarda para el orden
   document.getElementById("titulo-categoria").textContent = categoria.charAt(0).toUpperCase() + categoria.slice(1);
   const productosFiltrados = productos.filter(p => p.categoria === categoria);
+  productosActivos = productosFiltrados;
   renderizarProductos(productosFiltrados);
   document.getElementById("catalogo").style.display = "block";
   document.getElementById("detalle-producto").style.display = "none";
@@ -572,23 +573,28 @@ function filtrarCategoria(categoria) {
 
 
 function ordenarProductos() {
-  const criterio = document.getElementById("orden-select").value;
-  if (criterio === "default" || !window.ultimaCategoria) return;
+  const select = document.getElementById("orden-select");
+  const orden = select.value;
 
-  let productosFiltrados = productos.filter(p => p.categoria === window.ultimaCategoria);
+  if (!orden || orden === "default") return;
 
-  if (criterio === "precio-asc") {
-    productosFiltrados.sort((a, b) => a.precio - b.precio);
-  } else if (criterio === "precio-desc") {
-    productosFiltrados.sort((a, b) => b.precio - a.precio);
-  } else if (criterio === "az") {
-    productosFiltrados.sort((a, b) => a.nombre.localeCompare(b.nombre));
-  } else if (criterio === "za") {
-    productosFiltrados.sort((a, b) => b.nombre.localeCompare(a.nombre));
+  const contenedor = document.getElementById("productos-container");
+  let productosOrdenados = [...productosActivos];
+
+  if (orden === "precio-asc") {
+    productosOrdenados.sort((a, b) => a.precio - b.precio);
+  } else if (orden === "precio-desc") {
+    productosOrdenados.sort((a, b) => b.precio - a.precio);
+  } else if (orden === "az") {
+    productosOrdenados.sort((a, b) => a.nombre.localeCompare(b.nombre));
+  } else if (orden === "za") {
+    productosOrdenados.sort((a, b) => b.nombre.localeCompare(a.nombre));
   }
 
-  renderizarProductos(productosFiltrados);
+  renderizarProductos(productosOrdenados);
+  select.value = "default";
 }
+
 
 
 function verDetalle(id) {

@@ -94,16 +94,17 @@
     <div class="container">
 
       <h2 id="titulo-categoria" class="text-center my-4"></h2>
-      <div id="orden-filtros" class="mb-4">
+      <div id="orden-filtros">
         <select id="orden-select">
-            <option value="">Ordenar por</option>
-            <option value="precio-asc">Precio menor a mayor</option>
-            <option value="precio-desc">Precio mayor a menor</option>
-            <option value="az">Nombre A-Z</option>
-            <option value="za">Nombre Z-A</option>
+          <option value="default">Ordenar por...</option>
+          <option value="precio-asc">Precio: menor a mayor</option>
+          <option value="precio-desc">Precio: mayor a menor</option>
+          <option value="az">Nombre A-Z</option>
+          <option value="za">Nombre Z-A</option>
         </select>
         <button id="aplicar-orden">Aplicar</button>
       </div>
+
       <div id="productos-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"></div>
     </div>
   </section>
