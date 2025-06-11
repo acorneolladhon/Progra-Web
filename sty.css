@@ -1,0 +1,117 @@
+/* style.css actualizado para estructura tipo tienda con Bootstrap */
+/* style.css actualizado */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  padding-top: 70px; /* navbar fija */
+}
+
+.card-menu {
+  cursor: pointer;
+  padding: 1rem 2rem;
+  background-color: #f8f9fa;
+  border-radius: 1rem;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.card-menu:hover {
+  transform: scale(1.03);
+  background-color: #e9ecef;
+}
+
+.menu-inicial {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.catalogo-flex {
+  display: flex;
+}
+
+.menu-categorias {
+  flex: 0 0 200px;
+  padding: 2rem 1rem;
+}
+
+.menu-categorias ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.menu-categorias li {
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.menu-categorias li:hover {
+  background-color: #f0f0f0;
+}
+
+.productos-lista {
+  flex-grow: 1;
+  padding: 2rem;
+}
+
+.detalle-producto img {
+  border-radius: 1rem;
+}
+
+.offcanvas-footer {
+  border-top: 1px solid #dee2e6;
+  background-color: #f8f9fa;
+}
+
+input[type="number"] {
+  max-width: 60px;
+}
+
+.carrito-item {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.carrito-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 0.5rem;
+}
+
+.carrito-item-info {
+  flex-grow: 1;
+}
+
+.carrito-item-info strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.carrito-item-info .cantidad-precio {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.5rem 0;
+}
+
+.carrito-item-info .subtotal {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+
+.offcanvas-body .total-carrito {
+  font-size: 1.2rem;
+  padding: 1rem;
+  background-color: #f1f1f1;
+  font-weight: bold;
+  border-top: 2px solid #ccc;
+  margin-top: 1rem;
+  text-align: right;
+}

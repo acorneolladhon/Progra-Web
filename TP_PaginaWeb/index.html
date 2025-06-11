@@ -29,12 +29,65 @@
     <p>Apasionados por el voley, ofrecemos calidad y pasión en cada producto.</p>
   </section>
 
+<section id="catalogo" style="display: none;" class="catalogo-flex">
+  <!-- Menú lateral -->
+  <aside class="menu-categorias">
+    <h3>Categorías</h3>
+    <ul>
+      <li onclick="mostrarCategoria('zapatillas')">👟 Zapatillas</li>
+      <li onclick="mostrarCategoria('remeras')">👕 Remeras</li>
+      <li onclick="mostrarCategoria('rodilleras')">🦵 Rodilleras</li>
+      <li onclick="mostrarCategoria('manguitas')">🧤 Manguitas</li>
+      <li onclick="mostrarCategoria('calzas/shorts')">🩳 Calzas / Shorts</li>
+      <li onclick="mostrarCategoria('tops')">🏋️‍♀️ Tops</li>
+      <li onclick="mostrarCategoria('bolsos')">🎒 Bolsos</li>
+      <li onclick="mostrarCategoria('lesiones')">🩹 Lesiones</li>
+      <li onclick="mostrarCategoria('pelotas')">🏐 Pelotas</li>
+    </ul>
+  </aside>
+
+  <!-- Productos -->
+  <div class="productos-lista">
+    <h2 id="titulo-categoria"></h2>
+    <div id="productos-container"></div>
+  </div>
+</section>
+
+
+
+
 <main id="catalogo">
   <section>
     <h2>Catálogo</h2>
+
+    <!-- Filtros para búsqueda y orden -->
+    <section id="filtros-catalogo">
+      <input type="text" id="busqueda" placeholder="Buscar producto...">
+      <select id="filtro-categoria">
+        <option value="todas">Todas las categorías</option>
+        <option value="zapatillas">Zapatillas</option>
+        <option value="remeras">Remeras</option>
+        <option value="rodilleras">Rodilleras</option>
+        <option value="tops">Tops</option>
+        <option value="manguitas">Manguitas</option>
+        <option value="pelotas">Pelotas</option>
+        <option value="calzas/shorts">Calzas / Shorts</option>
+        <option value="bolsos">Bolsos</option>
+        <option value="lesiones">Lesiones</option>
+      </select>
+      <select id="orden">
+        <option value="precio-asc">Precio: menor a mayor</option>
+        <option value="precio-desc">Precio: mayor a menor</option>
+        <option value="az">Nombre A-Z</option>
+        <option value="za">Nombre Z-A</option>
+      </select>
+      <button id="aplicar-filtros">Aplicar</button>
+    </section>
+
     <div id="productos-container"></div>
   </section>
 </main>
+
 
 <section id="detalle-producto" style="display: none;">
   <div id="detalle-container"></div>
