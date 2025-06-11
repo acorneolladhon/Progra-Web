@@ -28,9 +28,17 @@ h5{
 
 
 .navbar {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
+
+.logo-img {
+  height: 60px; /* Cambiá este valor para ajustar el tamaño */
+  object-fit: contain;
+}
+
+
+
 
 .navbar-brand {
   font-weight: bold;
@@ -210,4 +218,8 @@ h5{
 #contacto p {
   font-size: 1.4rem;
   text-align: center;
+}
+
+section[id] {
+  scroll-margin-top: 70px; 
 }
