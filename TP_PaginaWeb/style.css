@@ -5,22 +5,36 @@ body {
   background-color: #a9cba6;
 }
 
-h1, h2, h5 {
+h1, h2{
   font-weight: bold;
+  font-size:35px 
+}
+
+h5{
+  font-weight: bold;
+  font-size:30px 
 }
 
 .navbar-custom {
-  background-color: #f7f0ba !important;  /* tu color5 */
+  background-color: #f7f0ba !important;  
+}
+
+.navbar-custom .nav-link {
+  font-size: 1.3rem;
+  font-weight: 400;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 
 .navbar {
-  padding-top: 1.3rem;
-  padding-bottom: 1.3rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 
 .navbar-brand {
   font-weight: bold;
+  font-size:30px;
 }
 
 .card img {
@@ -30,11 +44,59 @@ h1, h2, h5 {
 
 #productos-container .card {
   transition: transform 0.2s;
+
+}
+#productos-container .card {
+  width: 100%;
+  max-width: 400px;
+  height: 300px; /* 🔽 controla la altura total */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  font-size: 0.9rem;
+  background-color: #ecf6bb;
+  border: 2px solid #76bcad;
+  border-radius: 6px;
+}
+
+#productos-container .card img {
+  height: 100%x;
+  object-fit: contain;
+  margin-bottom: 2px;
+}
+
+#productos-container .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+#productos-container .card h5 {
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+  height: 48px; /* 🔄 fija alto del título */
+  overflow: hidden;
+}
+
+#productos-container .card p {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+}
+
+#productos-container .card button {
+  font-size: 0.85rem;
+  padding: 4px 10px;
+  align-self: flex-start;
 }
 
 #productos-container .card:hover {
-  transform: scale(1.02);
+  transform: scale(1.04);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
 }
+
 
 .offcanvas-body img {
   max-width: 64px;
@@ -106,7 +168,7 @@ h1, h2, h5 {
 }
 
 #hero {
-  background-image: url('https://portal.andina.pe/EDPfotografia3/Thumbnail/2025/01/04/001131732W.jpg');
+  background-image: url("https://media.tycsports.com/files/2024/06/20/732056/argentina-turquia_862x485.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -114,13 +176,13 @@ h1, h2, h5 {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
   padding: 100px 0;
   position: relative;
+  height: 250px;
 }
 
-
 .btn-categoria {
-  background-color: #e0dba4;      /* color3: amarillo */
+  background-color: #e0dba4;    
   color: #212529;
-  border: 1.5px solid #fa2e59;      /* color1: rosa fuerte */
+  border: 1.5px solid #53a08e;      
   font-weight: 500;
   padding: 10px 20px;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -128,7 +190,24 @@ h1, h2, h5 {
 }
 
 .btn-categoria:hover {
-  background-color: #fa2e59;      /* color1: rosa fuerte */
+  background-color: #368573;     
   color: white;
-  border-color: #fa2e59;
+  border-color: #53a08e;
+}
+
+.card {
+  background-color: #ecf6bb; 
+  border-color: #53a08e;
+  border-width: 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+#sobre-nosotros p {
+  font-size: 1.2rem;
+  text-align: justify;
+}
+#contacto p {
+  font-size: 1.4rem;
+  text-align: center;
 }
