@@ -558,6 +558,13 @@ function mostrarCategoria(categoria) {
 
   productosActivos = productos.filter(p => p.categoria === categoria);
   renderizarProductos(productosActivos);
+  setTimeout(() => {
+    const seccion = document.getElementById(nombre);
+    if (seccion) {
+      seccion.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, 100);
+
 }
 
 
@@ -645,6 +652,9 @@ function agregarAlCarritoDesdeDetalle(id) {
   }
   localStorage.setItem("carrito", JSON.stringify(carrito));
   renderizarCarrito();
+  mostrarMensaje("Producto agregado al carrito con éxito");
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
 }
 
 function renderizarCarrito() {
@@ -691,6 +701,27 @@ function eliminarItem(i) {
   localStorage.setItem("carrito", JSON.stringify(carrito));
   renderizarCarrito();
 }
+
+function mostrarMensaje(texto) {
+  const mensaje = document.createElement("div");
+  mensaje.innerText = texto;
+  mensaje.style.position = "fixed";
+  mensaje.style.top = "20px";
+  mensaje.style.left = "50%";
+  mensaje.style.transform = "translateX(-50%)";
+  mensaje.style.backgroundColor = "#fa2e59";
+  mensaje.style.color = "white";
+  mensaje.style.padding = "12px 20px";
+  mensaje.style.borderRadius = "8px";
+  mensaje.style.zIndex = "9999";
+  mensaje.style.boxShadow = "0 2px 8px rgba(0,0,0,0.2)";
+  document.body.appendChild(mensaje);
+
+  setTimeout(() => {
+    mensaje.remove();
+  }, 2000);
+}
+
 
 document.getElementById("vaciar-carrito").addEventListener("click", () => {
   carrito = [];
